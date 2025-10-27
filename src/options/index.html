@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI CO₂ Counter • Opzioni</title>
+    <link rel="stylesheet" href="../styles/app.css" />
+  </head>
+  <body class="aicc-opts">
+    <main class="opts-card">
+      <header class="opts-head">
+        <h1>Impostazioni</h1>
+      </header>
+
+      <section class="opts-group">
+        <label class="opts-row">
+          <span class="label">Energia per richiesta (Wh)</span>
+          <input id="WhPerRequest" type="number" min="0" step="0.1" class="text" />
+        </label>
+        <label class="opts-row">
+          <span class="label">Intensità carbonica (gCO₂/kWh)</span>
+          <input id="gCO2PerKWh" type="number" min="0" step="1" class="text" />
+          <small class="hint">Suggerimento: imposta l’intensità della tua area geografica o del fornitore.</small>
+        </label>
+      </section>
+
+      <section class="opts-group">
+        <div class="opts-row header">
+          <span class="label">Moltiplicatori per provider</span>
+        </div>
+        <div class="table-wrap">
+          <table id="providers" class="opts-table">
+            <thead><tr><th>Host</th><th>Moltiplicatore</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <footer class="opts-actions">
+        <button id="reset" class="aicc-pill ghost">Ripristina default</button>
+        <button id="save" class="aicc-pill solid">Salva</button>
+      </footer>
+    </main>
+
+    <script type="module" src="./index.js"></script>
+  </body>
+  </html>
+

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI CO₂ Counter</title>
+  <link rel="stylesheet" href="../styles/app.css" />
+  </head>
+<body class="aicc25-popup">
+  <main class="aicc25-card aicc25-alt" role="dialog" aria-labelledby="a25alt-title">
+    <header class="a25alt-head">
+      <h1 id="a25alt-title">Impronta CO₂</h1>
+      <span class="a25alt-chip"><strong id="reqs">—</strong> richieste</span>
+    </header>
+
+    <div class="a25alt-total" aria-live="polite">
+      <span id="total" class="num">—</span><span class="unit"></span>
+    </div>
+
+    <footer class="a25alt-actions">
+      <button id="reset" class="aicc25-btn ghost">Azzera contatori</button>
+      <button id="openOptions" class="aicc25-btn solid">Opzioni</button>
+    </footer>
+  </main>
+
+  <script type="module" src="./index.js"></script>
+</body>
+</html>
+
