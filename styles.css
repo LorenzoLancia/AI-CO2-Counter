@@ -4,13 +4,16 @@
 #aI-co2-counter-widget, #ai-co2-counter-widget {
   /* Layout */
   position: fixed;
-  right: 16px;
-  bottom: 16px;
+  right: calc(16px + env(safe-area-inset-right, 0px));
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
   z-index: 2147483647;
-  max-width: 300px;
-  padding: 12px 14px;
+  max-width: 340px;
+  min-width: 220px;
+  width: auto;
+  padding: 14px 16px;
   border-radius: 16px;
   isolation: isolate; /* allow safe overlay tint */
+  will-change: transform, opacity;
 
   /* Light translucent glass (default) */
   --aicc-bg: rgba(255,255,255,0.58);
@@ -19,15 +22,15 @@
   --aicc-muted: rgba(15,23,42,0.66);
   --aicc-accent: #0ea5e9; /* sky-500 */
 
-  background: linear-gradient(180deg, var(--aicc-bg), rgba(255,255,255,0.52));
+  background: linear-gradient(180deg, color-mix(in srgb, var(--aicc-bg) 92%, rgba(255,255,255,0.02)), rgba(255,255,255,0.36));
   color: var(--aicc-text);
-  border: 1px solid var(--aicc-border);
+  border: 1px solid color-mix(in srgb, var(--aicc-border) 86%, transparent);
+  /* layer shadows: subtle elevation + colored glow variable */
   box-shadow:
-    0 12px 28px rgba(2,6,23,0.15),
-    0 1px 0 rgba(255,255,255,0.4) inset,
-    /* colored glow adjusted by level classes */
-    0 10px 26px var(--aicc-shadow-glow, transparent);
-  backdrop-filter: blur(12px) saturate(160%);
+    0 8px 18px rgba(2,6,23,0.10),
+    0 1px 0 rgba(255,255,255,0.36) inset,
+    0 18px 40px color-mix(in oklab, var(--aicc-shadow-glow, transparent) 12%, transparent);
+  backdrop-filter: blur(10px) saturate(140%);
 
   /* Typography */
   font: var(--a-font);
@@ -38,6 +41,12 @@
   transform: translateY(4px) scale(.985);
   opacity: 0;
   animation: aicc-pop 200ms cubic-bezier(.2,.7,.2,1) forwards;
+  transition: box-shadow .18s ease, background-color .18s ease, transform .12s ease;
+
+  /* sizing/scroll for small viewports without breaking layout */
+  max-height: 72vh;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Livelli colore: regolano l'ombra (glow) del box, non lo sfondo */
@@ -59,7 +68,7 @@
   --aicc-bullet: #f97316;
 }
 #aI-co2-counter-widget.aicc-l-red, #ai-co2-counter-widget.aicc-l-red {
-  --aicc-shadow-glow: color-mix(in oklab, #ef4444 42%, transparent);
+  --aicc-shadow-glow: color-mix(in oklab, #ef4444 48%, transparent);
   --aicc-bullet: #ef4444;
 }
 
@@ -67,6 +76,7 @@
 #aI-co2-counter-widget.aicc-dragging, #ai-co2-counter-widget.aicc-dragging {
   cursor: grabbing !important;
   user-select: none;
+  touch-action: none; /* migliora dragging su touch */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -91,7 +101,7 @@
   color: var(--aicc-text);
   margin-bottom: 8px;
 }
-#aI-co2-counter-widget .aicc-title, #ai-co2-counter-widget .aicc-title { cursor: move; }
+#aI-co2-counter-widget .aicc-title, #ai-co2-counter-widget .aicc-title { cursor: move; touch-action: none; -webkit-user-drag: none; }
 #aI-co2-counter-widget .aicc-title::before, #ai-co2-counter-widget .aicc-title::before {
   content: "";
   width: 8px;
@@ -130,7 +140,7 @@
   gap: 6px;
 }
 
-/* Icon buttons inside widget: plain inline icons (no box) */
+/* Icon buttons: Apple-like subtle pill with stroked glyphs */
 #aI-co2-counter-widget .aicc-icon-btn, #ai-co2-counter-widget .aicc-icon-btn {
   appearance: none;
   border: none;
@@ -139,20 +149,34 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: 28px; height: 28px;
+  border-radius: 8px;
   padding: 0;
   margin: 0;
   line-height: 1;
   cursor: pointer;
   text-decoration: none;
-  transition: opacity .12s ease, transform .06s ease, color .12s ease;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color .12s ease, transform .06s ease, color .12s ease, box-shadow .12s ease;
+}
+#aI-co2-counter-widget .aicc-icon-btn:hover, #ai-co2-counter-widget .aicc-icon-btn:hover {
+  background-color: color-mix(in oklab, currentColor 8%, transparent);
+}
+#aI-co2-counter-widget .aicc-icon-btn:active, #ai-co2-counter-widget .aicc-icon-btn:active {
+  background-color: color-mix(in oklab, currentColor 12%, transparent);
+  transform: translateY(0);
+}
+#aI-co2-counter-widget .aicc-icon-btn:focus-visible, #ai-co2-counter-widget .aicc-icon-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--aicc-accent) 18%, transparent);
 }
 #aI-co2-counter-widget .aicc-icon-btn svg, #ai-co2-counter-widget .aicc-icon-btn svg {
   display: block;
-  width: 18px; height: 18px;
+  width: 16px; height: 16px; /* reduced icon size */
+  vector-effect: non-scaling-stroke;
 }
-#aI-co2-counter-widget .aicc-icon-btn:hover, #ai-co2-counter-widget .aicc-icon-btn:hover { opacity: .85; }
-#aI-co2-counter-widget .aicc-icon-btn:active, #ai-co2-counter-widget .aicc-icon-btn:active { opacity: 1; transform: none; }
 
+/* Buttons focus / accessibility */
 #aI-co2-counter-widget button, #ai-co2-counter-widget button {
   appearance: none;
   border: 1px solid color-mix(in oklab, var(--aicc-text) 18%, transparent);
@@ -163,12 +187,10 @@
   cursor: pointer;
   transition: all 140ms ease;
 }
-@media (prefers-color-scheme: dark) {
-  #aI-co2-counter-widget button, #ai-co2-counter-widget button {
-    background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.05));
-    color: #fff;
-    border-color: rgba(255,255,255,0.18);
-  }
+#aI-co2-counter-widget button:focus-visible, #ai-co2-counter-widget button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--aicc-accent) 16%, transparent);
+  transform: translateY(-1px);
 }
 
 #aI-co2-counter-widget button:hover, #ai-co2-counter-widget button:hover {
@@ -191,11 +213,11 @@
   width: 100%;
   padding: 8px 12px;
   border-radius: 12px; /* uniforme come il box */
-  background: color-mix(in oklab, var(--aicc-accent) 12%, var(--aicc-bg, #fff));
+  background: linear-gradient(180deg, color-mix(in srgb, var(--aicc-accent) 10%, transparent), color-mix(in srgb, var(--aicc-bg, #fff) 94%, transparent));
   color: var(--aicc-text);
-  border: 1px solid color-mix(in oklab, var(--aicc-accent) 28%, var(--aicc-border, rgba(16,24,40,.12)));
-  box-shadow: 0 8px 20px rgba(2,6,23,.12);
-  backdrop-filter: blur(8px) saturate(140%);
+  border: 1px solid color-mix(in srgb, var(--aicc-accent) 22%, var(--aicc-border, rgba(16,24,40,.12)));
+  box-shadow: 0 10px 26px rgba(2,6,23,.12);
+  backdrop-filter: blur(6px) saturate(130%);
   font: 12.5px/1.3 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
   text-align: center;
   pointer-events: none;

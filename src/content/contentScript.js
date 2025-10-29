@@ -57,16 +57,16 @@ function ensureWidget() {
     <hr />
     <div class="aicc-line"><span>Totale (estensione):</span><strong id="aicc-total">—</strong></div>
     <div class="aicc-actions">
-      <a id="aicc-info-link" class="aicc-icon-btn" href="#" title="Informazioni" aria-label="Informazioni">
-        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
-          <circle cx="12" cy="12" r="10" fill="currentColor" opacity=".12"/>
-          <circle cx="12" cy="7.5" r="1.25" fill="currentColor"/>
-          <rect x="10.9" y="10" width="2.2" height="7" rx="1.1" fill="currentColor"/>
+      <a id="aicc-info-link" class="aicc-icon-btn" href="https://github.com/LorenzoLancia/AI-CO2-Counter" title="Informazioni" aria-label="Informazioni">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">
+          <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.75"/>
+          <line x1="12" y1="10.5" x2="12" y2="16" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+          <circle cx="12" cy="7.5" r="1.1" fill="currentColor"/>
         </svg>
       </a>
       <button id="aicc-open-options" class="aicc-icon-btn" title="Opzioni" aria-label="Opzioni">
-        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
-          <path fill="currentColor" d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm9-3.5c0-.5-.04-.99-.1-1.47l2.04-1.59a1 1 0 0 0 .24-1.34l-1.93-3.34a1 1 0 0 0-1.27-.44l-2.4.97a8.1 8.1 0 0 0-2.55-1.47l-.37-2.56A1 1 0 0 0 12.4 0h-3.8a1 1 0 0 0-.99.85l-.37 2.56c-.9.33-1.76.8-2.55 1.36l-2.4-.97a1 1 0 0 0-1.27.45L.1 7.95c-.2.38-.13.85.24 1.13L2.35 10.7C2.28 11.15 2.25 11.58 2.25 12s.03.85.1 1.29l-2.02 1.6a1 1 0 0 0-.24 1.33l1.93 3.35a1 1 0 0 0 1.27.44l2.4-.96c.8.56 1.65 1.02 2.55 1.35l.37 2.56c.07.5.5.86 1 .86h3.8c.5 0 .93-.36 1-.85l.37-2.57c.9-.32 1.75-.78 2.55-1.35l2.4.96a1 1 0 0 0 1.27-.44l1.93-3.35a1 1 0 0 0-.24-1.33l-2.02-1.6c.07-.44.1-.87.1-1.29Zm-3.75 0a5.25 5.25 0 1 1-10.5 0 5.25 5.25 0 0 1 10.5 0Z"/>
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">
+          <path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm9-3.5c0-.5-.04-.99-.1-1.47l2.04-1.59a1 1 0 0 0 .24-1.34l-1.93-3.34a1 1 0 0 0-1.27-.44l-2.4.97a8.1 8.1 0 0 0-2.55-1.47l-.37-2.56A1 1 0 0 0 12.4 0h-3.8a1 1 0 0 0-.99.85l-.37 2.56c-.9.33-1.76.8-2.55 1.36l-2.4-.97a1 1 0 0 0-1.27.45L.1 7.95c-.2.38-.13.85.24 1.13L2.35 10.7C2.28 11.15 2.25 11.58 2.25 12s.03.85.1 1.29l-2.02 1.6a1 1 0 0 0-.24 1.33l1.93 3.35a1 1 0 0 0 1.27.44l2.4-.96c.8.56 1.65 1.02 2.55 1.35l.37 2.56c.07.5.5.86 1 .86h3.8c.5 0 .93-.36 1-.85l.37-2.57c.9-.32 1.75-.78 2.55-1.35l2.4.96a1 1 0 0 0 1.27-.44l1.93-3.35a1 1 0 0 0-.24-1.33l-2.02-1.6c.07-.44.1-.87.1-1.29Zm-3.75 0a5.25 5.25 0 1 1-10.5 0 5.25 5.25 0 0 1 10.5 0Z" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </button>
     </div>
@@ -156,6 +156,7 @@ function ensureWidget() {
     info.addEventListener("click", (e) => {
       e.preventDefault();
       // window.open('URL', '_blank');
+      window.open("https://github.com/LorenzoLancia/AI-CO2-Counter", "_blank");
     });
   }
 }
@@ -337,4 +338,3 @@ function showNudgeBadge() {
     try { showNudgeBadge(); } catch {}
   }, 3 * 60 * 1000);
 })();
-
